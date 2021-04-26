@@ -12,3 +12,8 @@ git checkout testbranch    -- to switch between branch
 git merge testbranch(execute in master branch)
 git origin push master
 
+git clone git@github.com:rluthra09/git-project.git  -- to clone repository
+
+git pull origin testbranch  -- to pull branch from git
+
+git checkout master -- abcd.txt  --to pull file from github
