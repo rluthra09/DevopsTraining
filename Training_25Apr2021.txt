@@ -1,0 +1,167 @@
+/etc/hostname--to change the hostname
+ifconfig
+
+Change content of vagrant file:(to change memory,cpu,hostname,add ethernet etc)
+Adding ethernet-for communication between host computer and guest vm
+
+Vagrant.configure("2") do |config|
+  config.vm.define "v", primary: true do |v|
+    v.vm.box = "bento/ubuntu-18.04"
+    v.vm.hostname = 'u64-18-04-jenkins'
+    v.vm.network :private_network, ip: "192.168.56.101"    
+	
+	v.vm.provider :virtualbox do |v|
+	  v.customize ["modifyvm", :id, "--name", "u64-18-04-jenkins"]
+	  v.customize ["modifyvm", :id, "--memory", 1024]
+	  v.customize ["modifyvm", :id, "--cpus", 1]
+    end	 
+ end
+end
+
+vagrant up
+vagrant ssh
+
+
+Working on GIT
+sudo su -
+root@u64-18-04-jenkins:~# git --version
+git version 2.17.1
+
+root@u64-18-04-jenkins:~# mkdir git-project
+root@u64-18-04-jenkins:~# cd git-project/
+root@u64-18-04-jenkins:~/git-project# cat firstfile
+This is my first git file
+root@u64-18-04-jenkins:~/git-project# git status
+fatal: not a git repository (or any of the parent directories): .git   --Error because we did not initialize any repository
+root@u64-18-04-jenkins:~/git-project# git init
+Initialized empty Git repository in /root/git-project/.git/
+root@u64-18-04-jenkins:~/git-project# ls -lart
+total 16
+-rw-r--r-- 1 root root   26 Apr 25 04:50 firstfile
+drwx------ 3 root root 4096 Apr 25 04:50 ..
+drwxr-xr-x 3 root root 4096 Apr 25 04:57 .
+drwxr-xr-x 7 root root 4096 Apr 25 04:57 .git
+
+root@u64-18-04-jenkins:~/git-project# git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        firstfile
+
+nothing added to commit but untracked files present (use "git add" to track)
+root@u64-18-04-jenkins:~/git-project# git add firstfile
+root@u64-18-04-jenkins:~/git-project# git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+
+        new file:   firstfile
+		
+root@u64-18-04-jenkins:~/git-project# git commit -m "First commit"   --To commit change is local repository
+[master (root-commit) d293aa6] First commit
+ Committer: root <root@u64-18-04-jenkins>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+)
+ create mode 100644 firstfile
+root@u64-18-04-jenkins:~/git-project# git status
+On branch master
+nothing to commit, working tree clean
+ 
+ https://github.com/ --create github account
+ userid-rluthra09
+ pw-Qp
+ 
+root@u64-18-04-jenkins:~/git-project# git remote add origin https://github.com/rluthra09/git-project.git
+root@u64-18-04-jenkins:~/git-project# git remote -v
+origin  https://github.com/rluthra09/git-project.git (fetch)
+origin  https://github.com/rluthra09/git-project.git (push)
+root@u64-18-04-jenkins:~/git-project# git push origin master  --to push change to remote repository(need internet for this)
+Username for 'https://github.com': rluthra09
+Password for 'https://rluthra09@github.com':
+Counting objects: 3, done.
+Writing objects: 100% (3/3), 232 bytes | 77.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/rluthra09/git-project.git
+ * [new branch]      master -> master
+ 
+ root@u64-18-04-jenkins:~/git-project# git branch   
+* master
+root@u64-18-04-jenkins:~/git-project# git branch testbranch  --to create branch
+root@u64-18-04-jenkins:~/git-project# git branch
+* master
+  testbranch
+root@u64-18-04-jenkins:~/git-project# git checkout testbranch  -- to change branch
+Switched to branch 'testbranch'
+root@u64-18-04-jenkins:~/git-project# git branch
+  master
+* testbranch
+root@u64-18-04-jenkins:~/git-project#vi testfile
+git add testfile
+git commit -m "Commiting file in local repository in testbranch"
+git push origin testbranch
+git pull origin testbranch
+
+-- To merge two branches (testbranch into master)
+root@u64-18-04-jenkins:~/git-project# git checkout master
+Switched to branch 'master'
+root@u64-18-04-jenkins:~/git-project# git branch
+* master
+  testbranch
+root@u64-18-04-jenkins:~/git-project# git merge testbranch
+Merge made by the 'recursive' strategy.
+ testfile | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 testfile
+root@u64-18-04-jenkins:~/git-project# git push origin master
+Username for 'https://github.com': rluthra09
+Password for 'https://rluthra09@github.com':
+Counting objects: 2, done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 322 bytes | 46.00 KiB/s, done.
+Total 2 (delta 0), reused 0 (delta 0)
+To https://github.com/rluthra09/git-project.git
+   7148d8e..52882a6  master -> master
+root@u64-18-04-jenkins:~/git-project#
+
+--Creating ssh keys to avoid enterimg password 
+ssh-keygen
+Add public key to github console>settings>ssh and gpg keys
+
+--To test ssh key is successfully added
+root@u64-18-04-jenkins:~/.ssh# ssh -T git@github.com
+Hi rluthra09! You've successfully authenticated, but GitHub does not provide shell access.
+
+Go to repository in git console>click on Code>select ssh and copy the URL
+Go to file /root/git-project/.git on vm
+vi config replace http url with ssh url
+
+Now modify any file and try to commit, it wont ask for password
+vi testfile
+git add testfile
+git commit -m "testing ssh connection"
+git branch   --to check which branch we are in
+git push origin testfile
+
+
+--To clone repository(When we want to clone and if it's empty then we need to start from git init)
+git clone git@github.com:rluthra09/git-project.git
+
+--Fork is used to clone repository directlyu to you github server instead of your local repository/machine

@@ -1,0 +1,31 @@
+Install vagrant(requires restart) and oracle virtual box
+
+https://www.virtualbox.org/wiki/Downloads
+https://www.vagrantup.com/downloads
+
+in cmd>vagrant --version
+
+Oracle virtual box is Virtual Machine manager, tool used to create multiple VM's.
+We need to enable Virtualization in our HOST computer.
+https://stackoverflow.com/questions/33304393/vt-x-is-disabled-in-the-bios-for-both-all-cpu-modes-verr-vmx-msr-all-vmx-disabl
+
+Create folder stryucture:
+C:\VM\images\
+create folder u64_18-04_jenkins_vagrantfile(name of the guest machine)
+
+cmd>vagrant init
+vagrant file will be created.
+
+change file "base" to "bento/ubuntu-18.04"    --image will be downloaded from vagrant cloud(https://app.vagrantup.com/boxes/search?utf8=%E2%9C%93&sort=downloads&provider=&q=ubuntu+18.04) we can select any image(windows,ubuntu etc)
+then execute -->vagrant up
+
+vagrant ssh
+userid:vagrant
+password:vagrant
+We will see VM running in Oracle VM.
+
+vagrant ssh (via command prompt)
+C:\VM\images\u64_18-04_jenkins_vagrantfile>vagrant ssh
+
+Basic linux commands:
+https://us02st1.zoom.us/web_client/jzsz6o/html/externalLinkPage.html?ref=https://maker.pro/linux/tutorial/basic-linux-commands-for-beginners
