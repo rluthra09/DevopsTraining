@@ -1,0 +1,55 @@
+ansible-playbook 1-playbook-createfile-specific-host.yaml
+ansible-playbook 5-playbook-install-webservers-selective.yml
+
+
+if failed to install any package
+apt-get update  -- to update repos
+
+
+to create vault password
+ansible-vault create my_vault_create_user.yml  --set password to open the file, enter data --my_password: secret$1
+ansible-vault edit my_vault_create_user.yml    -- to edit the file, it will ask for set password
+ansible-vault view my_vault_create_user.yml  -- to view
+ansible-vault decrypt my_vault_create_user.yml  -- to decrypt the content
+ansible-vault encrypt my_vault_create_user.yml  -- to encrypt the password
+kept password as -vault
+
+handlers
+conditions
+vault
+notify
+
+
+ansible-galaxy   --to create roles, like functions to be re-used
+
+
+--------------------------NAGIOS----------------Monitoring tool
+Create .vagrant file for nagios
+CPUS-2
+Memory-2048
+
+TTo install nagios---
+sudo su -
+apt-get update
+curl https://assets.nagios.com/downloads/nagiosxi/install.sh | sh
+
+install docker
+sudo apt-get update
+sudo apt-get install  curl  apt-transport-https ca-certificates software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo apt-get update
+sudo apt-get install -y docker-ce
+sudo systemctl status docker
+
+docker run --name mysql -d -e MYSQL_ROOT_PASSWORD=password mysql:5.7   -- to run sql using container
+docker inspect mysql | grep IP---- configure>configure wizard>mysql server
+check status of mysql in NAGIOS
+
+
+
+
+Exercise-
+usermod -G docker jenkins
+
+https://us02st1.zoom.us/web_client/f3jfhf/html/externalLinkPage.html?ref=https://github.com/puneetbhatia77/docker-website
