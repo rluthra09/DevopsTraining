@@ -1,0 +1,21 @@
+git init
+git add abc.txt
+git commit -m "First commit"
+git remote add origin https://github.com/rluthra09/git-project.git   -- to configure account
+git remote -v -- to check whether account is configured or not
+git push origin master  -- to push file to git
+
+git branch  -- to check active branch
+git branch testbranch  -- to create branch
+git checkout testbranch    -- to switch between branch
+
+git merge testbranch(execute in master branch)
+git origin push master
+
+git clone git@github.com:rluthra09/git-project.git  -- to clone repository
+
+fork is used to pull repository from on github account to another github account
+
+git pull origin testbranch  -- to pull branch from git
+
+git checkout master -- abcd.txt  --to pull file from github
