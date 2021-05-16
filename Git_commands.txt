@@ -16,6 +16,7 @@ git clone git@github.com:rluthra09/git-project.git  -- to clone repository
 
 fork is used to pull repository from on github account to another github account
 
+git pull origin master --allow-unrelated-histories      -----fatal: refusing to merge unrelated histories
 git pull origin testbranch  -- to pull branch from git
 
 git checkout master -- abcd.txt  --to pull file from github
