@@ -1,0 +1,69 @@
+To install docker(pre-requites to install kubernetes)-
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo apt-get update
+apt-cache policy docker-ce
+sudo apt-get install -y docker-ce
+sudo systemctl status docker
+
+
+To install kubernetes
+
+curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
+kubectl version --client -o json
+
+
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_1.6.2.deb  && sudo dpkg -i minikube_1.6.2.deb
+
+To install minikube required for creating kubernetes cluster
+sudo minikube config set vm-driver none
+sudo minikube start & 
+
+root@kubernetes:~# minikube status
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
+
+kubectl get pods
+kubectl get pods -A
+kubectl get pods --all-namespaces
+kubectl run hello-nginx --image=nginx --port=80
+kubectl get deployments
+kubectl get svc
+kubectl get svc -A  
+kubectl cluster-info
+kubectl create deployment hello-nginx --image=nginx --port=80
+kubectl get deployments
+kubectl expose deployment hello-nginx --type=NodePort
+ifconfig:port number to access the application, to access the application we need to create deployment followed by service
+kubectl scale --replicas=3 deployment/hello-nginx
+kubectl get replicaset
+kubectl delete pods <pod_name>
+kubectl delete replicaset <name>
+kubectl delete deployment <name>
+kubectl delete svc <name>
+
+kubectl get namespaces
+minikube dashboard &
+kubectl get pods -A
+
+#To convert cluter ip to nodeport, edit, kubectl -n namespace edit service
+kubectl -n kubernetes-dashboard edit service kubernetes-dashboard
+
+kubectl run hello-nginx1 --image=nginx1 --port=80
+
+https://github.com/puneetbhatia77/k8s-scripts
+git clone https://github.com/rluthra09/k8s-scripts.git
+
+
+kubectl apply -f create-pod.yml
+
+kubectl create namespace sprinpeople
+
+kubectl get pods -n springpeople   --pods runing under sprinpeople namespace
+
+kubectl get cronjobs
